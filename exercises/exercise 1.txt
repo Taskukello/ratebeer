@@ -1,0 +1,58 @@
+
+wadror@wadror:~/ratebeer$ rails c
+Running via Spring preloader in process 2916
+Loading development environment (Rails 4.2.4)
+irb(main):001:0> brew = Brewery.new name:"BrewDog", year:2007
+=> #<Brewery id: nil, name: "BrewDog", year: 2007, created_at: nil, updated_at: nil>
+irb(main):002:0> brew.save
+   (0.1ms)  begin transaction
+  SQL (0.3ms)  INSERT INTO "breweries" ("name", "year", "created_at", "updated_at") VALUES (?, ?, ?, ?)  [["name", "BrewDog"], ["year", 2007], ["created_at", "2016-01-27 12:59:10.796961"], ["updated_at", "2016-01-27 12:59:10.796961"]]
+   (16.4ms)  commit transaction
+=> true
+irb(main):003:0> eka = Beer.new name:"Punk IPA", style:"IPA"
+=> #<Beer id: nil, name: "Punk IPA", style: "IPA", brewery_id: nil, created_at: nil, updated_at: nil>
+irb(main):004:0> brew.beers << eka
+   (0.1ms)  begin transaction
+  SQL (0.2ms)  INSERT INTO "beers" ("name", "style", "brewery_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)  [["name", "Punk IPA"], ["style", "IPA"], ["brewery_id", 8], ["created_at", "2016-01-27 13:00:51.919838"], ["updated_at", "2016-01-27 13:00:51.919838"]]
+   (15.9ms)  commit transaction
+  Beer Load (0.2ms)  SELECT "beers".* FROM "beers" WHERE "beers"."brewery_id" = ?  [["brewery_id", 8]]
+=> #<ActiveRecord::Associations::CollectionProxy [#<Beer id: 17, name: "Punk IPA", style: "IPA", brewery_id: 8, created_at: "2016-01-27 13:00:51", updated_at: "2016-01-27 13:00:51">]>
+irb(main):005:0> toka = Beer.new name:"Nanny State", style:"lowAlcohol"
+=> #<Beer id: nil, name: "Nanny State", style: "lowAlcohol", brewery_id: nil, created_at: nil, updated_at: nil>
+irb(main):006:0> brew.beers << toka
+   (0.1ms)  begin transaction
+  SQL (0.2ms)  INSERT INTO "beers" ("name", "style", "brewery_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)  [["name", "Nanny State"], ["style", "lowAlcohol"], ["brewery_id", 8], ["created_at", "2016-01-27 13:02:11.573883"], ["updated_at", "2016-01-27 13:02:11.573883"]]
+   (8.4ms)  commit transaction
+=> #<ActiveRecord::Associations::CollectionProxy [#<Beer id: 17, name: "Punk IPA", style: "IPA", brewery_id: 8, created_at: "2016-01-27 13:00:51", updated_at: "2016-01-27 13:00:51">, #<Beer id: 18, name: "Nanny State", style: "lowAlcohol", brewery_id: 8, created_at: "2016-01-27 13:02:11", updated_at: "2016-01-27 13:02:11">]>
+irb(main):007:0> eka .ratings.create score:10
+   (0.1ms)  begin transaction
+  SQL (0.2ms)  INSERT INTO "ratings" ("score", "beer_id", "created_at", "updated_at") VALUES (?, ?, ?, ?)  [["score", 10], ["beer_id", 17], ["created_at", "2016-01-27 13:02:38.354396"], ["updated_at", "2016-01-27 13:02:38.354396"]]
+   (16.7ms)  commit transaction
+=> #<Rating id: 6, score: 10, beer_id: 17, created_at: "2016-01-27 13:02:38", updated_at: "2016-01-27 13:02:38">
+irb(main):008:0> eka .ratings.create score:57
+   (0.1ms)  begin transaction
+  SQL (0.2ms)  INSERT INTO "ratings" ("score", "beer_id", "created_at", "updated_at") VALUES (?, ?, ?, ?)  [["score", 57], ["beer_id", 17], ["created_at", "2016-01-27 13:02:46.257577"], ["updated_at", "2016-01-27 13:02:46.257577"]]
+   (8.4ms)  commit transaction
+=> #<Rating id: 7, score: 57, beer_id: 17, created_at: "2016-01-27 13:02:46", updated_at: "2016-01-27 13:02:46">
+irb(main):009:0> eka.save
+   (0.1ms)  begin transaction
+  SQL (0.2ms)  UPDATE "beers" SET "created_at" = ?, "updated_at" = ? WHERE "beers"."id" = ?  [["created_at", "2016-01-27 13:00:51.919838"], ["updated_at", "2016-01-27 13:00:51.919838"], ["id", 17]]
+   (8.6ms)  commit transaction
+=> true
+irb(main):010:0> toka.ratings.create score:1
+   (0.1ms)  begin transaction
+  SQL (0.2ms)  INSERT INTO "ratings" ("score", "beer_id", "created_at", "updated_at") VALUES (?, ?, ?, ?)  [["score", 1], ["beer_id", 18], ["created_at", "2016-01-27 13:03:02.471902"], ["updated_at", "2016-01-27 13:03:02.471902"]]
+   (8.2ms)  commit transaction
+=> #<Rating id: 8, score: 1, beer_id: 18, created_at: "2016-01-27 13:03:02", updated_at: "2016-01-27 13:03:02">
+irb(main):011:0> toka.ratings.create score:112
+   (0.1ms)  begin transaction
+  SQL (0.2ms)  INSERT INTO "ratings" ("score", "beer_id", "created_at", "updated_at") VALUES (?, ?, ?, ?)  [["score", 112], ["beer_id", 18], ["created_at", "2016-01-27 13:03:07.938843"], ["updated_at", "2016-01-27 13:03:07.938843"]]
+   (4.6ms)  commit transaction
+=> #<Rating id: 9, score: 112, beer_id: 18, created_at: "2016-01-27 13:03:07", updated_at: "2016-01-27 13:03:07">
+irb(main):012:0> toka.save
+   (0.1ms)  begin transaction
+   (0.0ms)  commit transaction
+=> true
+irb(main):013:0> exit
+
+HUOM TIETOKANTA ON TYHJENNETTY TÄMÄN JÄLKEEN JOTEN TEHTÄVÄ 1 SUORITUS EI NÄY ITSE SIVULLA

@@ -1,0 +1,16 @@
+<p id="notice"><%= notice %></p>
+
+<h2>List of ratings</h2>
+<tbody>
+<p> Number of ratings: <%= @ratings.count %> </p>
+
+<ul>
+ <% @ratings.each do |rating| %>
+   <li> <%=link_to rating, rating.beer %> <%= link_to 'delete', rating, method: :delete, data: { confirm: 'Are you sure?' } %> </li>
+ <% end %>
+</ul>
+</tbody>
+
+<br>
+<%= link_to 'new rating', new_rating_path%>
+</br>

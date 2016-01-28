@@ -8,24 +8,41 @@
 
 	<p>
 		<i>  Established in <%=@brewery.year %> </i>
+		
+
  
 
 	</p>
 
 	<p> 
 		<i>Number of beers: </i><%=@brewery.beers.count%>
+		<div>
+		<i> <% if @brewery.ratings.empty? %>
+			no ratings for beers.
+		<% else %>
+		<p>has <%=pluralize(@brewery.ratings.count ,'rating')%>, average rating: <%= @brewery.average_rating %></p> 
+		<% end %> </i>
+		</div>
 	</p>
 	
-	<p>
+
 	<h3> Beers </h3>
-		<ul>
+	<table>
+		<thead>
+			<th>Beer name</th
+			<% if @brewery.ratings.empty? %>
+			<% else %>
+			<th> average rating </th>
+			<% end %>
+		</thead>
 			<% @brewery.beers.each do |beer| %>
-			<li>
-				<%=link_to beer.name, beer%>
+			<tr>
+				<td><%=link_to beer, beer%></td>
+				<td><%=beer.average_rating%></td>	
 				<% end %>
-			</li>
-		</ul>
-	</p>
+			</tr>
+		</table>
+
 
 <%= link_to 'Edit', edit_brewery_path(@brewery) %>
 <%= link_to 'Back', breweries_path %>	
