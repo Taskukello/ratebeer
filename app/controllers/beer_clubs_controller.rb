@@ -56,7 +56,7 @@ class BeerClubsController < ApplicationController
   # PATCH/PUT /beer_clubs/1
   # PATCH/PUT /beer_clubs/1.json
   def update
-  
+    if (current_user)
     respond_to do |format|
       if @beer_club.update(beer_club_params)
         format.html { redirect_to @beer_club, notice: 'Beer club was successfully updated.' }
@@ -67,15 +67,18 @@ class BeerClubsController < ApplicationController
       end
 	end
   end
+  end
 
   # DELETE /beer_clubs/1
   # DELETE /beer_clubs/1.json
   def destroy
+    if (current_user)
     @beer_club.destroy
     respond_to do |format|
       format.html { redirect_to beer_clubs_url, notice: 'Beer club was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
   end
 
   private

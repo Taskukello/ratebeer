@@ -42,6 +42,7 @@ class BreweriesController < ApplicationController
   # PATCH/PUT /breweries/1
   # PATCH/PUT /breweries/1.json
   def update
+  if (current_user)
     respond_to do |format|
       if @brewery.update(brewery_params)
         format.html { redirect_to @brewery, notice: 'Brewery was successfully updated.' }
@@ -51,16 +52,19 @@ class BreweriesController < ApplicationController
         format.json { render json: @brewery.errors, status: :unprocessable_entity }
       end
     end
+	end
   end
 
   # DELETE /breweries/1
   # DELETE /breweries/1.json
   def destroy
+    if (current_user)
     @brewery.destroy
     respond_to do |format|
       format.html { redirect_to breweries_url, notice: 'Brewery was successfully destroyed.' }
       format.json { head :no_content }
     end
+	end
   end
   
 

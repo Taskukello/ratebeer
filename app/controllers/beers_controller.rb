@@ -47,6 +47,7 @@ class BeersController < ApplicationController
   # PATCH/PUT /beers/1
   # PATCH/PUT /beers/1.json
   def update
+    if (current_user)
     respond_to do |format|
       if @beer.update(beer_params)
         format.html { redirect_to @beer, notice: 'Beer was successfully updated.' }
@@ -55,17 +56,20 @@ class BeersController < ApplicationController
         format.html { render :edit }
         format.json { render json: @beer.errors, status: :unprocessable_entity }
       end
+	  end
     end
   end
 
   # DELETE /beers/1
   # DELETE /beers/1.json
   def destroy
+    if (current_user)
     @beer.destroy
     respond_to do |format|
       format.html { redirect_to beers_url, notice: 'Beer was successfully destroyed.' }
       format.json { head :no_content }
     end
+	end
   end
 
   private
