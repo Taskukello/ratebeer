@@ -77,10 +77,4 @@ class BreweriesController < ApplicationController
       params.require(:brewery).permit(:name, :year)
     end
 	
-	def authenticate
-	  admin_accounts = { "admin" => "secret", "pekka" => "beer", "arto" => "foobar", "matti" => "ittam"}
-      authenticate_or_request_with_http_basic do |username, password|
-	  admin_accounts[username] == password    #ei syytä tarkistaa onko käyttäjätunnusta olemassa, koska jos se on väärin salasanaa ei löydy.
-	end
-	end
 end

@@ -30,9 +30,10 @@
 	<table>
 		<thead>
 			<th>Beer name</th
+
 			<% if @brewery.ratings.empty? %>
 			<% else %>
-			<th> average rating </th>
+		<th> average rating </th>
 			<% end %>
 		</thead>
 			<% @brewery.beers.each do |beer| %>
