@@ -8,8 +8,8 @@ include Average
   has_many :ratings, dependent: :destroy
   has_many :raters, -> { uniq }, through: :ratings, source: :user
   
-  validates :name, uniqueness: true
    validates :name, presence: true, length: {minimum: 3}
+   validates :style, presence: true
    
   
 	

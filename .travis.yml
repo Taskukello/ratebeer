@@ -1,0 +1,15 @@
+language: ruby
+rvm:
+- 2.3.0
+script:
+- bundle exec rake db:migrate --trace
+- RAILS_ENV=test bundle exec rake db:migrate --trace
+- bundle exec rake db:test:prepare
+- bundle exec rspec -fd spec/
+deploy:
+  provider: heroku
+  api_key:
+    secure: zGGXDFB6qJ9KLb1o6SKdDTRFoLOzp6Ela2SHcQg2smCYNci5XsMjXrMnA83PXse/Of4JoUJh72j1pix9KtWKVh98x8khldUxKxepVhEJm5Mdve2UpyxzQ2/QDJTzpJnKEd7JrxbpWQMo1kmDRhpvAv8RSUZCuqmEfV2LFmqJpf81QejQ5N34aiAS2Sm/7TC8k7tZBvW0r2KbTk+m+QyhyppVY0bfgy8CqMA9/SPNZRXLmXv26iK5XZNMTsqbWW6AOvEpt+gEdiFuRNM8xiJpAbaHptrvKC17dt88ooTGC/YR0Bxm701cg9L9qLtyxI+fBFvZWWRmeoW+EVKpBCrXZ6n5Ug9lLD25WjKnHtDGdG6LqbihSoeR7nbclMSuoVQBkQrRJj5NL7JOLn3gwxWCF2nAzPrsBOkT6DiXAuxhmnwdR4naGeX1dfoSXogQNrST9QC7s+XM95Lq+o0KovuUYkTD9uzvpRPjjGfQYoTBEWYSVMv7LdNUTSDbr0dvmG3rAKBD5R/UgY1XVa1jAu1ia0pp8Bp8ViefDImNOAxEmY2838AmiMc19FLdbGOeRkRiwEO8V88acASi4nG4z9mk5b/sUpnlAwBr4Sx9aKj4R0I9KNzW9spWgDtrxdlHxQA3ixphwj22BTYswW1E+mLAG5EO+BkZuh5ANsZ6/FfHgjw=
+  app: nameless-reaches-43134
+  on:
+    repo: Taskukello/ratebeer
