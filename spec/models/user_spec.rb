@@ -68,6 +68,45 @@ RSpec.describe User, type: :model do
     end
 
   end
+   describe "favorite style" do
+   let(:user){FactoryGirl.create(:user) }
+
+   		
+		
+	it "has method for determining one" do
+	user.should respond_to :favorite_style
+	end
+	
+	it "returns nil if there isn't any ratings" do
+	expect(user.favorite_style).to eq(nil)
+    end
+	
+	it "returns right favorite style" do
+	      beer = create_beer_with_rating(user, 10)
+			
+      expect(user.favorite_style).to eq(beer.style)
+	end
+  end
+  
+     describe "favorite brewery" do
+   let(:user){FactoryGirl.create(:user) }
+
+   		
+		
+	it "has method for determining one" do
+	user.should respond_to :favorite_brewery
+	end
+	
+	it "returns nil if there isn't any ratings" do
+	expect(user.favorite_brewery).to eq(nil)
+    end
+	
+	it "returns right favorite style" do
+	      beer = create_beer_with_rating(user, 10)
+			
+      expect(user.favorite_brewery).to eq(beer.brewery)
+	end
+  end
 
 end # describe User
 

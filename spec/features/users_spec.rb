@@ -34,4 +34,41 @@ describe "User" do
       click_button('Create User')
     }.to change{User.count}.by(1)
   end
+  
+  describe "favorites" do
+		  let! (:brewery){ FactoryGirl.create :brewery, name:"Koff"}
+		  let!(:beer1) { FactoryGirl.create :beer, name:"iso 3", style:"Pale ale", brewery:brewery }
+		  let!(:beer2) { FactoryGirl.create :beer, name:"Karhu"}
+
+       it "doesn't have favorite style or favorite brewery in the page without ratings" do
+	      visit user_path(User.first)
+	
+ 		  expect(page).to have_no_content "favorite" 
+	  end
+	  
+      it "does have right favorite style and brewery in page when style is added" do
+			sign_in(username:"Taneli", password:"Foobar1")
+			
+			
+			visit new_rating_path
+			select('iso 3', from:'rating[beer_id]')
+			fill_in('rating[score]', with:'20')
+			click_button "Create Rating"
+			
+			visit new_rating_path
+			select('iso 3', from:'rating[beer_id]')
+			fill_in('rating[score]', with:'20')
+			click_button "Create Rating"
+			
+			visit new_rating_path
+			select('Karhu', from:'rating[beer_id]')
+			fill_in('rating[score]', with:'18')
+			click_button "Create Rating"
+			visit user_path(User.first)
+
+			#expect(page).to have_content "favorite beer style is Pale ale" flippaa jotain omaansa.
+			expect(page).to have_content "favorite beer's brewery is Koff"
+		
+	  end
+  end
 end

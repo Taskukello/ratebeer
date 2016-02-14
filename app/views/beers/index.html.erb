@@ -31,5 +31,5 @@
 
 <%= link_to 'list of breweries', breweries_path%>
 <div></div>
-<%= link_to 'New Beer', new_beer_path %>
+<%= link_to('New Beer', new_beer_path) unless current_user.nil? %>
 </br>

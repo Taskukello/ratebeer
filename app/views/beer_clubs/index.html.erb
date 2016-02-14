@@ -28,8 +28,6 @@
         <td><%= beer_club.founded %></td>
 		<% if current_user %>
 			<td><%= link_to 'Join', "/beer_clubs/join/#{beer_club.id}", method: :post%></td>1
-			<td><%= link_to 'Edit', edit_beer_club_path(beer_club) %></td>
-			<td><%= link_to 'Destroy', beer_club, method: :delete, data: { confirm: 'Are you sure?' } %></td>
 		<%end%>
       </tr>
     <% end %>

@@ -21,13 +21,16 @@
 	No ratings yet.
 <% else %>
  <p>has <%=pluralize(@user.ratings.count ,'rating')%>, average rating: <%= @user.average_rating %></p> 
+ <p> favorite beer style is <%=(@user.favorite_style)%>
+ <p> favorite beer's brewery is <%=(@user.favorite_brewery)%>
 <% end %>
 
 
-
+<div>
 <%= link_to 'Back', users_path %>
 <% if @user == current_user %>
 |
 	<%= link_to 'Edit', edit_user_path(@user) %> |
 	<td><%= link_to 'Destroy user', @user, method: :delete, data: { confirm: 'Are you sure?' } %></td>
 <%end%>
+</div>
