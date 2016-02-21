@@ -12,6 +12,8 @@ class BeerClubsController < ApplicationController
   # GET /beer_clubs/1
   # GET /beer_clubs/1.json
   def show
+      @membership = Membership.where("user_id = current_user.id AND beer_club_id = @beer_club.id")
+	  byebug
   end
 
   # GET /beer_clubs/new
@@ -29,7 +31,7 @@ class BeerClubsController < ApplicationController
 
   respond_to do |format|
     if @membership.save
-      format.html { redirect_to beer_clubs_path, notice: 'Joining succesfull' }
+      format.html { redirect_to beer_clubs_path, notice: 'welcome to the club' }
       format.json { render :show, status: :created, location: @beer_club }
     else
       format.html { render beer_clubs_url}
@@ -92,4 +94,5 @@ class BeerClubsController < ApplicationController
     def beer_club_params
       params.require(:beer_club).permit(:name, :founded)
     end
+
 end

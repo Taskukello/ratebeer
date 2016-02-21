@@ -6,7 +6,7 @@
 <h2>Your clubs </h2>
 <ul>
 <% @memberships.each do |membership| %>
-<% if current_user = membership.user %>
+<% if (membership.user == current_user)%>
 <li><%= membership.beer_club.name%></li>
 <% end %>
 <% end %>
@@ -26,8 +26,10 @@
       <tr>
         <td><%= link_to beer_club.name, beer_club %></td>
         <td><%= beer_club.founded %></td>
-		<% if current_user %>
-			<td><%= link_to 'Join', "/beer_clubs/join/#{beer_club.id}", method: :post%></td>1
+		<% unless beer_club.users.include? current_user%>
+				<% if @truth == 0%>
+			<td><%= link_to 'Join', "/beer_clubs/join/#{beer_club.id}", method: :post%></td>
+			<%end%>
 		<%end%>
       </tr>
     <% end %>

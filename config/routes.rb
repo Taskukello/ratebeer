@@ -9,8 +9,13 @@ Rails.application.routes.draw do
 
   resources :ratings, only: [:index, :new, :create, :destroy]
   resource :session, only: [:new, :create, :destroy]
+  resources :places, only:[:index, :show]
+post 'places', to:'places#search'
+  
   get 'signup', to: 'users#new'
+  get 'places', to: 'places#index'
   get 'signin', to: 'sessions#new'
+  post 'places', to:'places#search'
   delete 'signout', to: 'sessions#destroy'
    post 'beer_clubs/join/:beer_club_id', to: 'beer_clubs#join_club'
   

@@ -13,3 +13,5 @@ deploy:
   app: nameless-reaches-43134
   on:
     repo: Taskukello/ratebeer
+env:
+- APIKEY=4ca4298ab8e521c6940371429d357beb
