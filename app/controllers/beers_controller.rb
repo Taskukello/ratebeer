@@ -1,7 +1,6 @@
 class BeersController < ApplicationController
   before_action :set_beer, only: [:show, :edit, :update, :destroy]
   before_action :ensure_that_signed_in, except: [:index, :show]
-    
 
   # GET /beers
   # GET /beers.json
@@ -11,7 +10,7 @@ class BeersController < ApplicationController
 
   # GET /beers/1
   # GET /beers/1.json
-    def show
+  def show
     @rating = Rating.new
     @rating.beer = @beer
   end
@@ -19,14 +18,14 @@ class BeersController < ApplicationController
   # GET /beers/new
   def new
     @beer = Beer.new
-	@breweries = Brewery.all
-	set_breweries_and_styles_for_template
+    @breweries = Brewery.all
+    @styles = Style.all
   end
 
   # GET /beers/1/edit
   def edit
-  	@breweries = Brewery.all
-  	set_breweries_and_styles_for_template
+    @breweries = Brewery.all
+    @styles = Style.all
   end
 
   # POST /beers
@@ -37,12 +36,11 @@ class BeersController < ApplicationController
     respond_to do |format|
       if @beer.save
         format.html { redirect_to beers_path, notice: 'Beer was successfully created.' }
-        format.json { render action: 'show', status: :created, location: @beer }
+        format.json { render :show, status: :created, location: @beer }
       else
         @breweries = Brewery.all
-        set_breweries_and_styles_for_template
-
-        format.html { render action: 'new' }
+        @styles = Style.all
+        format.html { render :new }
         format.json { render json: @beer.errors, status: :unprocessable_entity }
       end
     end
@@ -51,36 +49,25 @@ class BeersController < ApplicationController
   # PATCH/PUT /beers/1
   # PATCH/PUT /beers/1.json
   def update
-    if (current_user)
     respond_to do |format|
       if @beer.update(beer_params)
         format.html { redirect_to @beer, notice: 'Beer was successfully updated.' }
         format.json { render :show, status: :ok, location: @beer }
       else
-	  @breweries = Brewery.all
-        set_breweries_and_styles_for_template
         format.html { render :edit }
         format.json { render json: @beer.errors, status: :unprocessable_entity }
       end
-	  end
     end
-  end
-  
-   def set_breweries_and_styles_for_template
-    @breweries = Brewery.all
-    @styles = ["Weizen", "Lager", "Pale ale", "IPA", "Porter"]
   end
 
   # DELETE /beers/1
   # DELETE /beers/1.json
   def destroy
-    if (current_user)
     @beer.destroy
     respond_to do |format|
       format.html { redirect_to beers_url, notice: 'Beer was successfully destroyed.' }
       format.json { head :no_content }
     end
-	end
   end
 
   private
@@ -91,6 +78,6 @@ class BeersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def beer_params
-      params.require(:beer).permit(:name, :style, :brewery_id)
+      params.require(:beer).permit(:name, :style_id, :brewery_id)
     end
 end
