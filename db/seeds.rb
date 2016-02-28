@@ -1,11 +1,11 @@
 b1 = Brewery.create name:"Koff", year:1897
 b2 = Brewery.create name:"Malmgard", year:2001
 b3 = Brewery.create name:"Weihenstephaner", year:1042
-w = Brewery.create style:"Weizen",  description:"Leipäteksti" 
-l  = Brewery.create style:"Lager",  description:"Leipätekstiä lisää" 
-p  = Brewery.create style:"Pale ale",  description:"Leipätekstiä edelleenkin" 
-i  = Brewery.create style:"IPA",  description:"Leipätekstiä, miksi edes luet enään?" 
-p = Brewery.create style:"Porter",  description:"Leipätekstiä eikä miksikään muutu!" 
+w = Style.create style:"Weizen",  description:"Leipäteksti" 
+l  = Style.create style:"Lager",  description:"Leipätekstiä lisää" 
+p  = Style.create style:"Pale ale",  description:"Leipätekstiä edelleenkin" 
+i  = Style.create style:"IPA",  description:"Leipätekstiä, miksi edes luet enään?" 
+p = Style.create style:"Porter",  description:"Leipätekstiä eikä miksikään muutu!" 
 b1.beers.create name:"Iso 3", style:l
 b1.beers.create name:"Karhu", style:l
 b1.beers.create name:"Tuplahumala", style:l
