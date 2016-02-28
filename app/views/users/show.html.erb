@@ -25,7 +25,7 @@
 	No ratings yet.
 <% else %>
  <p>has <%=pluralize(@user.ratings.count ,'rating')%>, average rating: <%= round(@user.average_rating) %></p> 
- <p> favorite beer style is <%=(@user.favorite_style)%>
+ <p> favorite beer style is <%=(@user.favorite_style.style)%>
  <p> favorite beer's brewery is <%=(@user.favorite_brewery)%>
 <% end %>
 
