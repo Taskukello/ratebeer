@@ -1,5 +1,6 @@
 <p id="notice"><%= notice %></p>
 <div class="row">
+<p>käyttäjä Admin, on statukseltaan Admin. Salasana on Admin1 (juu tiedän tuon kertominen ei ole fiksua, mutta helpottanee testaamista)</p>
 <p>
   <strong>Username:</strong>
   <%= @user.username %>
@@ -28,11 +29,12 @@
  <p> favorite beer style is <%=(@user.favorite_style.style)%>
  <p> favorite beer's brewery is <%=(@user.favorite_brewery)%>
 <% end %>
-
+<% if current_user.Admin %>
 <% if !@user.status%>
 <%= link_to "froze account", froze_account_user_path(@user.id), method: :post, class: "btn btn-danger" %>
 <%else %>
 <%= link_to "activate account", activate_account_user_path(@user.id), method: :post, class: "btn btn-danger" %>
+<%end%>
 <%end%>
 
 <div>

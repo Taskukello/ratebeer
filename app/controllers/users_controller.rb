@@ -64,21 +64,29 @@ class UsersController < ApplicationController
     end
   end
   
-   # def froze_account
-   # user = User.find(params[:id])
-   # user.update_attribute(:status, true)
+    def froze_account
+	if (current_user.Admin)
+    user = User.find(params[:id])
+    user.update_attribute(:status, true)
 
 
-   # redirect_to :back, notice:"Account status set to frozen"
-  #end
+    redirect_to :back, notice:"Account status set to frozen"
+    else
+	redirect_to :back, notice:"Powers of god (admin) is required to do that!"
+	end
+  end
   
-	#  def activate_account
-    #user = User.find(params[:id])
-    #user.update_attribute(:status, false)
+	  def activate_account
+	  	if (current_user.Admin)
+    user = User.find(params[:id])
+    user.update_attribute(:status, false)
 
 
-#    redirect_to :back, notice:"Account status set to active"
- # end
+    redirect_to :back, notice:"Account status set to active"
+	else
+	redirect_to :back, notice:"Powers of god (admin) is required to do that!"
+	end
+  end
 
   private
     # Use callbacks to share common setup or constraints between actions.
