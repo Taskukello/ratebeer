@@ -29,31 +29,13 @@ PASSWORD_FORMAT = /\A
   end
   
   
-    def favorite_style
-
+  def favorite_style
     return nil if ratings.empty?
-    return ratings.first.beer.style if ratings.count == 1
 
-    weizens = ratings.find_all {|r| r.beer.style == "Weizen"}
-    lagers= ratings.find_all {|r| r.beer.style == "Lager"}
-    paleales = ratings.find_all {|r| r.beer.style == "Pale Ale"}
-    ipas = ratings.find_all {|r| r.beer.style == "IPA"}
-    porters = ratings.find_all {|r| r.beer.style == "Porter"}
-
-	
-	
-    beers = ["Weizen", "Lager", "Pale ale", "IPA", "Porter"]
-    values = [
-        (weizens.inject(0.0) {|sum,rating| sum + rating[:score]} / (weizens.size + 0.00000001)).round(2),
-        (lagers.inject(0.0) {|sum,rating| sum + rating[:score]} / (lagers.size + 0.0000001)).round(2),
-        (paleales.inject(0.0) {|sum,rating| sum + rating[:score]} / (paleales.size  + 0.00000001)).round(2),
-        (ipas.inject(0.0) {|sum,rating| sum + rating[:score]} / (ipas.size  + 0.00000001)).round(2),
-        (porters.inject(0.0) {|sum,rating| sum + rating[:score]} / (porters.size  + 0.00000001)).round(2),
-    ]
-
-    return beers[values.index(values.max)]
-
+    rated = ratings.map{ |r| r.beer.style }.uniq
+    rated.sort_by { |style| -rating_of_style(style) }.first
   end
+
   
   
   def favorite_brewery
@@ -62,16 +44,9 @@ PASSWORD_FORMAT = /\A
 	
 	
   end
-end
-
-
-
-
-class Rating < ActiveRecord::Base
-  belongs_to :beer
-  belongs_to :user   # rating kuuluu myös käyttäjään
-
-  def to_s
-    "#{beer.name} #{score}"
+  
+    def self.top(n)
+    sorted_by_rating_count = User.all.sort_by{ |u| -(u.ratings.count||0) }
+    return sorted_by_rating_count.take(n);
   end
 end

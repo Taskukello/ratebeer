@@ -7,6 +7,10 @@ has_many :ratings, through: :beers
 validates :name, uniqueness: true
 validates :year, numericality: {greater_than_or_equal_to: 1042,
 								 only_integer: true}
+								 
+  scope :active, -> { where active:true }
+  scope :retired, -> { where active:[nil,false] }								 
+								 
  validates :name, presence: true, length: {minimum: 3}
    validate :validate_year
 
@@ -27,6 +31,11 @@ validates :year, numericality: {greater_than_or_equal_to: 1042,
   end
   
   
+ def self.top(n)
+   sorted_by_rating_in_desc_order = Brewery.all.sort_by{ |b| -(b.average_rating||0) }
+   return sorted_by_rating_in_desc_order.take(n)
+end
+
   def to_s
   return "#{self.name}";
   end

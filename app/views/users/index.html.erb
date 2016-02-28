@@ -2,7 +2,7 @@
 
 <h1>Listing Users</h1>
 
-<table>
+<table class="table table-striped">
   <thead>
     <tr>
       <th>Username</th>
@@ -13,8 +13,10 @@
   <tbody>
     <% @users.each do |user| %>
       <tr>
-        <td><%= user.username %></td>
-        <td><%= link_to 'Show', user %></td>
+        <td><%=link_to user.username, user %></td>
+        <% if user.status == true %>
+		<td> <p class="small-info-box">account frozen</P></td>
+		<% end %>
       </tr>
     <% end %>
   </tbody>
@@ -22,4 +24,4 @@
 
 <br>
 
-<%= link_to 'New User', new_user_path %>
+<%= link_to 'New User', new_user_path , class:'btn btn-primary'%>

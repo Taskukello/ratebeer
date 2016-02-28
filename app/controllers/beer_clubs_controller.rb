@@ -13,7 +13,6 @@ class BeerClubsController < ApplicationController
   # GET /beer_clubs/1.json
   def show
       @membership = Membership.where("user_id = current_user.id AND beer_club_id = @beer_club.id")
-	  byebug
   end
 
   # GET /beer_clubs/new
@@ -75,7 +74,7 @@ class BeerClubsController < ApplicationController
   # DELETE /beer_clubs/1
   # DELETE /beer_clubs/1.json
   def destroy
-    if (current_user)
+    if (current_user.Admin == true)
     @beer_club.destroy
     respond_to do |format|
       format.html { redirect_to beer_clubs_url, notice: 'Beer club was successfully destroyed.' }

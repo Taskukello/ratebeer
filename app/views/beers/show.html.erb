@@ -8,7 +8,7 @@
 
 <p>
   <strong>Style:</strong>
-  <%= @beer.style %>
+  <%= link_to @beer.style.style, @beer.style %>
 </p>
 
 <p>
@@ -19,7 +19,7 @@
 <% if @beer.ratings.empty? %>
  beer has not yet been rated!
 <% else %>
- <p>has <%=pluralize(@beer.ratings.count ,'rating')%>, average rating: <%= @beer.average_rating %></p> 
+ <p>has <%=pluralize(@beer.ratings.count ,'rating')%>, average rating: <%= round(@beer.average_rating) %></p> 
 <% end %>
 
 		<%if current_user %>
@@ -30,8 +30,8 @@
   <%= form_for(@rating) do |f| %>
     <%= f.hidden_field :beer_id %>
     score: <%= f.number_field :score %>
-    <%= f.submit %>
+    <%= f.submit class:"btn btn-primary" %>
   <% end %>
-<%= link_to 'Edit', edit_beer_path(@beer) %> |
 <%end %>
+  <%= edit_and_destroy_buttons(@beer) %>
 <%= link_to 'Back', beers_path %>

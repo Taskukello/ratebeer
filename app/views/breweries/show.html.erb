@@ -3,6 +3,9 @@
 
 	<p>
 		<h2> <%= @brewery.name %> brewery </h2>
+		  <% if not @brewery.active  %>
+      <span class="label label-info">retired</span>
+  <% end %>
 
 	</p>
 
@@ -44,7 +47,8 @@
 			</tr>
 		</table>
 
-		<%if current_user %>
-<%= link_to 'Edit', edit_brewery_path(@brewery) %>
+		<%if current_user.Admin == true%>
+<%= link_to "change activity", toggle_activity_brewery_path(@brewery.id), method: :post, class: "btn btn-primary" %>		
+<%= link_to 'Edit', edit_brewery_path(@brewery), class:'btn btn-warning' %>
 <%end%>
-<%= link_to 'Back', breweries_path %>	
+<%= link_to 'Back', breweries_path, class:'btn btn-primary' %>	

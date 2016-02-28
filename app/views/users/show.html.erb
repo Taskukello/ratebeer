@@ -1,17 +1,21 @@
 <p id="notice"><%= notice %></p>
-
+<div class="row">
 <p>
   <strong>Username:</strong>
   <%= @user.username %>
 </p>
+<% if @user.status%>
+<td> <p class="info-box">account frozen</P></td>
+<%end%>
 
+</div>
 <h2> Ratings </h2>
   <ul>
     <% @user.ratings.each do |rating| %>
       <li>
         <%= rating %>
         <% if @user == current_user %>
-            <%= link_to 'delete', rating, method: :delete, data: { confirm: 'Are you sure?' } %>
+            <%= link_to 'delete', rating, method: :delete, class:'btn btn-danger', data: { confirm: 'Are you sure?' } %>
         <% end %>
       </li>
     <% end %>
@@ -20,17 +24,22 @@
 <% if @user.ratings.empty? %>
 	No ratings yet.
 <% else %>
- <p>has <%=pluralize(@user.ratings.count ,'rating')%>, average rating: <%= @user.average_rating %></p> 
+ <p>has <%=pluralize(@user.ratings.count ,'rating')%>, average rating: <%= round(@user.average_rating) %></p> 
  <p> favorite beer style is <%=(@user.favorite_style)%>
  <p> favorite beer's brewery is <%=(@user.favorite_brewery)%>
 <% end %>
 
+<% if !@user.status%>
+<%= link_to "froze account", froze_account_user_path(@user.id), method: :post, class: "btn btn-danger" %>
+<%else %>
+<%= link_to "activate account", activate_account_user_path(@user.id), method: :post, class: "btn btn-danger" %>
+<%end%>
 
 <div>
-<%= link_to 'Back', users_path %>
+<%= link_to 'Back', users_path , class:'btn btn-primary'%>
 <% if @user == current_user %>
 |
-	<%= link_to 'Edit', edit_user_path(@user) %> |
-	<td><%= link_to 'Destroy user', @user, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+	<%= link_to 'Edit', edit_user_path(@user), class:'btn btn-warning'%> |
+	<td><%= link_to 'Destroy user', @user, method: :delete, class:'btn btn-danger', data: { confirm: 'Are you sure?' } %></td>
 <%end%>
 </div>

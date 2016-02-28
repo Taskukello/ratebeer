@@ -20,8 +20,14 @@ post 'places', to:'places#search'
   delete 'signout', to: 'sessions#destroy'
    post 'beer_clubs/join/:beer_club_id', to: 'beer_clubs#join_club'
   
+  resources :breweries do
+    post 'toggle_activity', on: :member
+  end
  
-  
+    resources :users do
+    post 'froze_account', on: :member
+	post 'activate_account', on: :member
+  end
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

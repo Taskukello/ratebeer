@@ -2,7 +2,7 @@
 
 <h1>Listing Beers</h1>
 
-<table>
+  <table class="table table-hover">
   <thead>
     <tr>
       <th>Name</th>
@@ -13,16 +13,15 @@
   </thead>
 
   <tbody>
+
     <% @beers.each do |beer| %>
       <tr>
         <td><%=link_to beer, beer%></td>
-        <td><%= beer.style %></td>
+        <td><%= link_to beer.style.style, beer.style %></td>
         <td><%=link_to beer.brewery, beer.brewery%></td>
-		<%if current_user %>
-        <td><%= link_to 'Edit', edit_beer_path(beer) %></td>
-        <td><%= link_to 'Destroy', beer, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-		<%end%>
+		<td><%= edit_and_destroy_buttons(beer) %></td>
       </tr>
+
     <% end %>
   </tbody>
 </table>

@@ -5,6 +5,7 @@ source 'https://rubygems.org'
 gem 'rails', '4.2.4'
 gem 'bcrypt', '~> 3.1.7'
 gem 'httparty'
+gem 'bootstrap-sass'
 
 
 ruby '2.3.0'
@@ -21,6 +22,7 @@ end
 
 group :development do
   gem "better_errors"
+    gem 'rails_layout'
 
 end
 

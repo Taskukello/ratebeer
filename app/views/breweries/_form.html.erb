@@ -10,7 +10,11 @@
       </ul>
     </div>
   <% end %>
-
+	
+  <div class="field">
+    <%= f.label :active %>
+    <%= f.check_box :active %>
+  </div>	
   <div class="field">
     <%= f.label :name %><br>
     <%= f.text_field :name %>
@@ -20,6 +24,6 @@
     <%= f.number_field :year %>
   </div>
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit class:"btn btn-primary" %>
   </div>
 <% end %>

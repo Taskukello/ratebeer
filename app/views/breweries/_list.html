@@ -1,0 +1,22 @@
+
+<table class="table table-hover">
+  <thead>
+  <tr>
+    <th>Name</th>
+    <th>Year</th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <% breweries.each do |brewery| %>
+      <tr>
+        <td><%= link_to brewery.name, brewery %></td>
+        <td><%= brewery.year %></td>
+		<%if current_user %>
+        <td>  <%= edit_and_destroy_buttons(brewery) %></td>
+		<%end%>
+        <td></td>
+      </tr>
+  <% end %>
+  </tbody>
+</table>

@@ -63,11 +63,13 @@ class BeersController < ApplicationController
   # DELETE /beers/1
   # DELETE /beers/1.json
   def destroy
-    @beer.destroy
-    respond_to do |format|
-      format.html { redirect_to beers_url, notice: 'Beer was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+	if (current_user.Admin == true)  #Ei kaunista mutta jos henkilö joka ei ole admin yrittää poistaa tietoja, niin sivu crashaa.
+		byebug
+		@beer.destroy
+		respond_to do |format|
+			format.html { redirect_to beers_url, notice: 'Beer was successfully destroyed.' }
+			format.json { head :no_content }
+		end
   end
 
   private
@@ -80,4 +82,5 @@ class BeersController < ApplicationController
     def beer_params
       params.require(:beer).permit(:name, :style_id, :brewery_id)
     end
+end
 end
